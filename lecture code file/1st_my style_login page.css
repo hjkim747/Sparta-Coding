@@ -1,0 +1,28 @@
+
+<!--style tag 분리하는것-->
+
+<!-- style.css 파일을 같은 폴더에 만들고(확장자명 .css로 끝나야함), head 태그에서 불러오기 -->
+<link rel="stylesheet" type="text/css" href = "1st_my style_login page.css">
+<!--내 파일 링크 연결한것-->
+*{
+    font-family: 'Nanum Pen Script', cursive;
+    }
+    
+    .mytitle {
+        color: white;
+        width: 300px;
+        height: 200px;
+        background-image: url('https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg');
+        background-position: center;
+        background-size: cover;
+        
+        border-radius: 10px;
+        text-align: center;
+        padding-top: 40px;
+    }
+    .wrap {
+        /*좌우정렬 - ex. 중앙에 그림과 글을 넣고싶을떄*/
+        margin: 10px auto; /* 10px auto 했을떄 첫번째것이 위아래, 두번째것이 auto로 나눈것*/
+        width: 300px; /*좌우랑 위아래 같이 행동, 10px-300px, auto-, 만약에 auto를 앞에 쓰면 width대신 height로 표현해서 시작*/
+
+    }

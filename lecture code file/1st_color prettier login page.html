@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <!--구글 웹폰트 가서 select 한후 주소 복사 붙여넣기-->
+    <!--link 부분은 meta밑에, css 부분은 style 밑에 넣기-->
+    <!--link대신 import이용하면 style 밑에 링크와 css 둘다 넣을 수 있음-->
+    <title>스파르타코딩클럽 | 로그인페이지</title>
+    <style>
+        *{
+        font-family: 'Nanum Pen Script', cursive;
+        }
+        .mytitle {
+            color: white;
+            width: 300px;
+            height: 200px;
+            background-image: url('https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg');
+            background-position: center;
+            background-size: cover;
+            
+            border-radius: 10px;
+            text-align: center;
+            padding-top: 40px;
+        }
+        .wrap {
+            /*좌우정렬 - ex. 중앙에 그림과 글을 넣고싶을떄*/
+            margin: 10px auto; /* 10px auto 했을떄 첫번째것이 위아래, 두번째것이 auto로 나눈것*/
+            width: 300px; /*좌우랑 위아래 같이 행동, 10px-300px, auto-, 만약에 auto를 앞에 쓰면 width대신 height로 표현해서 시작*/
+
+        }
+    </style>
+</head>
+
+<body> <!--body는 최대한 건드리지 말고 div나 class이용해서 변경-->
+    <div class="wrap"> <!--밑에있는 여러 div를 한번에 묶는 div생성, 그후 class=wrap 로 묶어서 속성 적용-->
+        <div class="mytitle">
+            <h1>로그인 페이지</h1>
+            <h5>아이디, 비밀번호를 입력해주세요</h5>
+        </div>
+    </div>
+    <div>
+        <p>
+            ID: <input type="text" />
+        </p>
+        <p>
+            PW: <input type="password" />
+        </p>
+    </div>
+    <button>로그인하기</button>
+</body>
+</body>
+
+</html>

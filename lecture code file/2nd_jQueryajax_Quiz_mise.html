@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery 연습하고 가기!</title>
+
+    <!-- jQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        div.question-box {
+            margin: 10px 0 20px 0;
+        }
+    </style>
+
+    <script>
+        // 버튼을 눌렀을때마다 fuction을 실행시킴
+        function q1() {
+
+            $.ajax({
+                type: "GET", //ajax는 쉼표를 끝에 꼭 써 줘야함
+                url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+                data: {},
+                success: function (response) {
+                    // 버튼을 누를때마다 다시 업데이트. 이전 내용 empty
+                    $('#names-q1').empty();
+                    let miseData = response["RealtimeCityAir"]["row"];
+                    for (let i = 0; i < miseData.length; i++) {
+                        let current = miseData[i];
+                        let guName = current['MSRSTE_NM'];
+                        let guMise = current['IDEX_MVL'];
+                        // <li>가 테그
+                        // '<li>' + guName + ':' + guMise + '</li>'로 도 가능
+                        let tempMise = `<li>${guName} : ${guMise}</li>`
+                        // append로 tag를 넣어 주는 것
+                        $('#names-q1').append(tempMise);
+                        // console.log(guName, guMise);
+                    }
+                }
+            })
+        }
+
+
+    </script>
+
+</head>
+
+<body>
+    <h1>jQuery+Ajax의 조합을 연습하자!</h1>
+
+    <hr />
+
+    <div class="question-box">
+        <h2>1. 서울시 OpenAPI(실시간 미세먼지 상태)를 이용하기</h2>
+        <p>모든 구의 미세먼지를 표기해주세요</p>
+        <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
+        <button onclick="q1()">업데이트</button>
+        <ul id="names-q1">
+        </ul>
+    </div>
+</body>
+
+</html>

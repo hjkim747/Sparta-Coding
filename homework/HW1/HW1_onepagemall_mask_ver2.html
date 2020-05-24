@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+    깔끔하게 필요한 부분만 붙여넣기/ 혹은 필요한 부분만 남기고 지우기 ver
+
+Q&A 질문사항 1. 어떻게 해야 드롭박스 클릭했을때 10개,20개 등 수량이 뜨게 할 수 있는지
+2. 박스들이 서로 어긋나 있는데 어떻게 해야 textbox들이 일정하게 밑으로 align 되는지
+3. 수량, 주소 등 곁에 박스 혹은 테두리는 어떻게 한건지 (예시에서)
+4. 마스크 공동구매같은 글씨도 사진과 잘 align 되게 하고싶음
+5. 버튼을 노란색으로 bootstrap에서 가져온 코드로 했더니 javascript로 눌렀을때 메세지창 뜨는게 안되서
+그냥 평범한걸로 다시 바꿈. 왜 안되는거지?
+6. 수량 옆 textbox에서 희미한 글씨로 안에 쓸 수 있는건 무슨 코드였지? 수업시간에 잠깐 지나쳤었는데
+기억이 안남;;
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Sunflower:wght@700&display=swap"
+        rel="stylesheet">
+    <title>Jin's one page mask shopping mall</title>
+
+    <style>
+        .big_title {
+            font-family: 'Sunflower', sans-serif;
+            /* margin: 10px auto; */
+            /* width: 500px; */
+            margin: 10px auto;
+            padding: 20px;
+            display: inline;
+        }
+
+        .info_personal {
+            font-family: 'Nanum Pen Script', cursive;
+            margin: 10px auto;
+
+        }
+
+        .info_button {
+            border-style: solid;
+            margin: 10px auto;
+            width: 400px;
+            border-radius: 5px;
+            /* text-align: auto; */
+        }
+
+
+        .whole {
+            margin: 10px auto;
+            /* 10px auto 했을떄 첫번째것이 위아래, 두번째것이 auto로 나눈것*/
+            width: 300px;
+            height: 400px;
+
+        }
+
+        .listing {
+
+            color: black;
+            width: 400px;
+            /*칸의 사이즈*/
+            height: 350px;
+            background-image: url('https://www.draeger.com/Products/Image/x-plore-1900-img-d-16766-2018.jpg');
+            background-position: center;
+            background-size: cover;
+            /*백그라운드 이미지 사이즈*/
+
+            border-radius: 5px;
+            /*이미지 네 모서리를 둥글게 만들기, 보기 좋게*/
+            border-color: cornflowerblue;
+            border-style: solid;
+            text-align: center;
+            /*정렬, default는 왼쪽정렬*/
+            padding: 40px;
+            /*padding-top 은 위쪽 마진,margin:바깥여백, padding:안쪽여백-부모테그와 자식테그 사이, 부모의 padding =자식의 margin*/
+            /* padding-left: 40px;  */
+            /*왼쪽 마진*/
+        }
+    </style>
+    <!-- <script>
+        <button onclick="hey()" type="button" class="btn btn-warning">주문이 완료되었습니다.</button>
+    </script> -->
+</head>
+
+<body>
+    <div class="whole">
+        <div class="listing">
+        </div>
+        <div class="big_title">
+            <h1>마스크 공동구매</h1>
+            <h4>가격: 5000원/개</h4>
+            <h5>COVID 19 바이러스 차단 마스크 공구, 최소주문 10개 </h5>
+        </div>
+        <div class="info_button">
+            <div class="big_title">
+                <div class="order_title"></div>
+                <h1> 주문하기</h1>
+                <p>
+                    주문자 성함 <input type="textbox" />
+                </p>
+                <!-- <div class="btn-group dropup">
+                    수량 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Dropup
+                    </button> -->
+                <div class="dropdown">
+                    수량 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        선택하시오
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">10</a>
+                        <a class="dropdown-item" href="#">20</a>
+                        <a class="dropdown-item" href="#">30 max</a>
+                    </div>
+                    <input type="textbox">
+                </div>
+                <p>
+                    주소 <input type="text" />
+                </p>
+                <p>
+                    전화번호 <input type="text" />
+                </p>
+                <p>
+                    쿠폰 번호 입력 <input type="text" />
+                </p>
+                <!-- <div class="dropdown-menu"> -->
+                <!-- Dropdown menu links -->
+                <!-- <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">10</a>
+                            <a class="dropdown-item" href="#">20</a>
+                            <a class="dropdown-item" href="#">30</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">40 max</a>
+                        </div>
+                    </div> -->
+            </div>
+            </p>
+
+        </div>
+
+        <button id="button1" onclick="button1_click();">주문하기</button>
+        <script>
+            function button1_click() {
+                alert("주문이 완료되었습니다.");
+            }
+        </script>
+    </div>
+    </div>
+</body>
+</body>
+
+</html>

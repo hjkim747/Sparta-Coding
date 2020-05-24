@@ -1,0 +1,107 @@
+<!-- 2주차 수업 렉쳐 -->
+
+**은행의 창구가 API와 같다는 것을 기억하시나요?**
+
+같은 예금 창구에서도 개인 고객이냐 기업 고객이냐에 따라
+가져와야 하는 것 / 처리해주는 것이 다른 것처럼,
+
+클라이언트가 요청 할 때에도, "타입"이라는 것이 존재합니다.
+
+* GET → 통상적으로! 데이터 조회(Read)를 요청할 때
+예) 영화 목록 조회
+
+* POST → 통상적으로! 데이터 생성(Create), 변경(Update), 삭제(Delete) 요청 할 때
+예) 회원가입, 회원탈퇴, 비밀번호 수정
+
+이 중에서 오늘은 GET 방식에 대해 배워보겠습니다. (POST는 4주차에 배웁니다)
+
+
+https://movie.naver.com/movie/bi/mi/basic.nhn?code=161967
+
+위 주소는 크게 두 부분으로 쪼개집니다. 바로 "?"가 쪼개지는 지점인데요.
+"?" 기준으로 앞부분이 <서버 주소>, 뒷부분이 [영화 번호] 입니다.
+
+    * 서버 주소: https://movie.naver.com/movie/bi/mi/basic.nhn
+    * 영화 정보: code=161967
+
+    **GET 방식으로 데이터를 전달하는 방법**
+
+    ? : 여기서부터 전달할 데이터가 작성된다는 의미입니다.
+    & : 전달할 데이터가 더 있다는 뜻입니다.
+
+
+    예시) google.com/search?q=아이폰&sourceid=chrome&ie=UTF-8
+
+    위 주소는 google.com의 search 창구에 다음 정보를 전달합니다!
+    q=아이폰 (검색어)
+    sourceid=chrome (브라우저 정보)
+    ie=UTF-8 (인코딩 정보)
+    <!-- (서버에서 이런 정보들을 tracking 함) -->
+
+
+    $.ajax({
+    type: "GET", // GET (정보 검색) 방식으로 요청한다.
+    url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+    data: {}, // 요청하면서 함께 줄 데이터 (GET 요청시엔 비워두세요)
+    success: function(response){ // 서버에서 준 결과 (응답 데이터)를 response라는 변수에 담음
+    console.log(response) // 서버에서 준 결과를 이용해서 나머지 코드를 작성
+    }
+    })
+
+    $.ajax({
+    type: "GET",
+    url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+    data: {},
+    success: function(response){
+    // 값 중 도봉구의 미세먼지 값만 가져와보기
+    let dobong = response["RealtimeCityAir"]["row"][11];
+    let gu_name = dobong['MSRSTE_NM'];
+    let gu_mise = dobong['IDEX_MVL'];
+    console.log(gu_name, gu_mise);
+    <!-- 콘솔 로그로 구이름과 미세먼제 농도 화면에 출력 -->
+    }
+    })
+
+    @ajax를 사용하는 이유
+    ajax는asynchronous: 코드 위에서 부터 아래로 순서대로 실행되지 않음 - 그래서 중요한 부분을 먼저 실행하는것
+    (순서대로x, 한 브라우저에서 여러 부분이 있을때 각자 요청을 날리고 바로 다음줄 javascript 코드로 넘어감)
+    -브라우저에서 고객이 느끼기에 더 빠르다고 느껴짐
+    -실행은 순차적인데 완료는 순차적x (그전에 보낸 요청응답이 오기전에 다음 것 요청을 날림)
+
+
+    javascript는 synchronous:코드 위에서 아래로 순서대로 실행
+
+
+    $.ajax({
+    type: "GET",
+    url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+    data: {},
+    success: function(response){
+    // 값 중 도봉구의 미세먼지 값만 가져와보기
+
+    <!-- 이 response를 꼭 ajax의 success밑에 (요청이 성공했을 경우에만 response 하도록) 넣어줘야함.
+             밖에 넣으면 ajax는 a싱크 이므로 브라우저가 안 돌아갈 수 있음 -->
+    let dobong = response["RealtimeCityAir"]["row"][11];
+    let gu_name = dobong['MSRSTE_NM'];
+    let gu_mise = dobong['IDEX_MVL'];
+    console.log(gu_name, gu_mise);
+    }
+    })
+
+    <!-- 모든 구의 미세먼지 -->
+    $.ajax({
+    type: "GET",
+    url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+    data: {},
+    success: function(response){
+    // 값 중 도봉구의 미세먼지 값만 가져와보기
+    let miseList = response["RealtimeCityAir"]["row"];
+    <!-- i는 0 부터 시작하고; i 는 전체 length보다 작을때까지 진행 하고; i++ 한개씩 진행한다는 표시 let -->
+    for (let i = 0; i<miseList.length;i++){ <!-- current 정의 추가 -->
+        current=miseList[i];
+        let gu_name = current['MSRSTE_NM'];
+        let gu_mise = current['IDEX_MVL'];
+        console.log(gu_name, gu_mise);
+        }
+        }
+        })

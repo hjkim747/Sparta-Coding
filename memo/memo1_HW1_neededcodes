@@ -1,0 +1,11 @@
+1. 처음 시작할때 기본적인 형식 이해
+
+2. class에 대한 개념/ <div></div> 로 분리
+
+3. <style></style>로 CSS로 변경 가능
+1)박스 테두리 선 나타내기 
+.classname {
+    border-style: bold
+}
+
+2)

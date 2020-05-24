@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery 연습하고 가기!</title>
+    <!-- JQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        div.question-box {
+            margin: 10px 0 20px 0;
+        }
+
+        div.question-box>div {
+            margin-top: 30px;
+        }
+    </style>
+
+    <script>
+        function q1() {
+            $.ajax({
+                type: "GET",
+                url: "https://api.thecatapi.com/v1/images/search",
+                data: {},
+                success: function (response) {
+                    let imgurl = response[0]['url'];
+                    // 콘솔에 들어가서 확인했을때 array(list)의 0번에 접근해서 그중 url을 가져와야 한다는 것을 알 수 있음
+                    $("#img-cat").attr("src", imgurl);
+                    //이미지를 계속 바꿔주는 jQuery change image url: .attr (attribute) 구글 검색으로 찾아온것
+                    //src가 이미지의 경로:src를 imgurl로 바꿔주는 것
+                }
+            })
+        }
+    </script>
+
+</head>
+
+<body>
+    <h1>JQuery+Ajax의 조합을 연습하자!</h1>
+
+    <hr />
+
+    <div class="question-box">
+        <h2>3. 랜덤 고양이 사진 API를 이용하기</h2>
+        <p>예쁜 고양이 사진을 보여주세요</p>
+        <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
+        <button onclick="q1()">고양이를 보자</button>
+        <div>
+            <img id="img-cat" width="300"
+                src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" />
+                <!-- src가 이미지의 경로 -->
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스파르타코딩클럽 | 로그인페이지</title>
+    <style>
+        .mytitle {
+            color: white;
+            width: 300px;
+            /*칸의 사이즈*/
+            height: 200px;
+            background-image: url('https://www.ancient-origins.net/sites/default/files/field/image/Agesilaus-II-cover.jpg');
+            background-position: center;
+            background-size: cover;
+            /*백그라운드 이미지 사이즈*/
+
+            border-radius: 10px;
+            /*이미지 네 모서리를 둥글게 만들기, 보기 좋게*/
+            text-align: center;
+            /*정렬, default는 왼쪽정렬*/
+            padding-top: 40px;
+            /*padding-top 은 위쪽 마진,margin:바깥여백, padding:안쪽여백-부모테그와 자식테그 사이, 부모의 padding =자식의 margin*/
+            /* padding-left: 40px;  */
+            /*왼쪽 마진*/
+
+        }
+
+        .wrap {
+            /*좌우정렬 - ex. 중앙에 그림과 글을 넣고싶을떄*/
+            margin: 10px auto; /* 10px auto 했을떄 첫번째것이 위아래, 두번째것이 auto로 나눈것*/
+            width: 300px; /*좌우랑 위아래 같이 행동, 10px-300px, auto-, 만약에 auto를 앞에 쓰면 width대신 height로 표현해서 시작*/
+
+        }
+    </style>
+</head>
+
+
+<body> <!--body는 최대한 건드리지 말고 div나 class이용해서 변경-->
+    <div class="wrap"> <!--밑에있는 여러 div를 한번에 묶는 div생성, 그후 class=wrap 로 묶어서 속성 적용-->
+        <div class="my title">
+            <h1>로그인 페이지</h1>
+            <h5>아이디, 비밀번호를 입력해주세요</h5>
+        </div>
+    </div>
+    <div>
+        <p>
+            ID: <input type="text" />
+        </p>
+        <p>
+            PW: <input type="password" />
+        </p>
+    </div>
+    <button>로그인하기</button>
+</body>
+</body>
+
+</html>
+```

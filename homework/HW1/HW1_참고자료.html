@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <style>
+
+        * {
+            font-family: 'Nanum Gothic', sans-serif;
+        }
+
+        .wrap {
+            width: 500px;
+            margin: 10px auto;
+        }
+
+        h1 {
+            font-size: 20pt;
+            font-weight: bolder;
+            display: block;
+        }
+
+        h1.product_title {
+            display: inline;
+        }
+
+        .product-image {
+            /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQkHQumQtmyikA_ItnTFNQdryeWLCde9eKBIEWTVqt3RoPmBIB_&usqp=CAU') */
+            margin: 20px auto;
+            width: 500px;
+            border-radius: 10px;
+        }
+
+        .product_description {
+            margin: 10px auto;
+        }
+
+        .product_order {
+            margin: 30px auto;
+        }
+
+        .order_info {
+            margin: 10px auto;
+        }
+
+        .order_button {
+            width: 200px;
+            margin: auto;
+        }
+    </style>
+
+    <script>
+        function order_complete() {
+            alert('주문이 완료되었습니다!');
+        }
+    </script>
+
+    <title>COVID 19 MASK MALL: bulk order (마스크 공동구매) 2020 </title>
+
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- Product Image Area -->
+        <div>
+            <img class="product-image" src="https://www.draeger.com/Products/Image/x-plore-1900-img-d-16766-2018.jpg">
+        <!-- Product Info Area -->
+        <div class="product_info">
+            <h1 class="product_title">KF94 마스크 공동구매</h1>&nbsp;&nbsp;&nbsp;&nbsp;가격: 9000원/10개
+            <p class="product_description">COVID 19 바이러스 차단 KF94 마스크 공구, 최소주문 10개 
+            (1인 30개 한정)</p>
+        </div>
+
+        <!-- Product Order Field Area -->
+        <div class="product_order">
+            <h1>주문하기</h1>
+            <div class="input-group order_info">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">주문자 이름:</span>
+                </div>
+                <input type="text" class="form-control" aria-label="With textarea" />
+            </div>
+            <div class="input-group order_info">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">수량:</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01">
+                    <option selected>선택하기</option>
+                    <option value="10">10개</option>
+                    <option value="20">20개</option>
+                    <option value="30">30개</option>
+                </select>
+            </div>
+            <div class="input-group order_info">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">주소:</span>
+                </div>
+                <input type="text" class="form-control" aria-label="With textarea" />
+            </div>
+            <div class="input-group order_info">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">전화번호:</span>
+                </div>
+                <input type="text" class="form-control" aria-label="With textarea" />
+            </div>
+
+            <div class="order_button">
+                <button type="button" onclick="order_complete()" class="btn btn-primary order_button"
+                    data-toggle="button" aria-pressed="false">
+                    주문하기
+                </button>
+            </div>
+
+        </div>
+</body>
+
+</html>
