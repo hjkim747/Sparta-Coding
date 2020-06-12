@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Sunflower:wght@700&display=swap"
+        rel="stylesheet">
+    <title> COVID 19 MASK MALL: bulk order (마스크 공동구매) 2020 </title>
+
+    <!-- JQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- 부트스트랩에서 html과 css링크 가져와서 붙여넣어 놔야함 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<script>
+    // 버튼의 fuction과 연결해서 버튼을 눌렀을때 조건문 시작
+    // function hey() {
+    //     if ($('#input_name').val() == "") {
+    //         alert('이름을 입력해 주세요.')
+    //     } else if ($('#input_select').val() == "option") {
+    //         alert('옵션을 선택해 주세요.')
+    //     } else if ($('#input_address').val() == "") {
+    //         alert('주소를 입력해 주세요.')
+    //     } else if ($('#input_number').val() == "") {
+    //         alert('번호를 입력해 주세요.')
+    //     } else if ($('#input_coupon').val() == "") {
+    //         alert('쿠폰번호를 입력해 주세요.');
+    //     } else
+    //         alert('주문이 완료되었습니다.')
+    // }
+    // 페이지 열때 실행되는 것들
+    $(document).ready(function () {
+        $('#orders-box').html('');
+        listing();
+    });
+
+    function hey() { //hey()라는 버튼을 클릭했을 때
+        // 1. name, select, address, number, coupon 내용을 가져옵니다.
+        let name = $('#input_name').val();
+        let select = $('#input_select').val();
+        let address = $('#input_address').val();
+        let number = $('#input_number').val();
+        let coupon = $('#input_coupon').val();
+
+        // 2. name, select, address, number, coupon 중 하나라도 입력하지 않았을 경우 alert를 띄웁니다.
+        if (name == '') {
+            alert('이름을 입력해주세요');
+            $('#input_name').focus();
+            return;
+        } else if (select == 'option') {
+            alert('수량을 선택해주세요');
+            $('#input_select').focus();
+            return;
+        } else if (address == '') {
+            alert('주소를 입력해주세요');
+            $('#input_address').focus();
+            return;
+        } else if (number == '') {
+            alert('전화번호를 입력해주세요');
+            $('#input_number').focus();
+            return;
+        } else if (coupon == '') {
+            alert('쿠폰번호를 입력해주세요');
+            $('#input_coupon').focus();
+            return;
+        } else
+            alert('주문이 완료되었습니다!')
+
+        // 3. POST /reviews 에 저장을 요청합니다.
+        $.ajax({
+            type: "POST",
+            url: "/orders",
+            data: {
+                input_name_give: name,
+                input_select_give: select,
+                input_address_give: address,
+                input_number_give: number,
+                input_coupon_give: coupon
+            },
+            success: function (response) {
+                if (response['result'] == 'success') {
+                    alert(response['msg']); //msg = '주문이 성공적으로 완료되었습니다.'
+                    window.location.reload();
+                }
+            }
+        })
+    }
+
+    function listing() {
+        // 1. 리뷰 목록을 서버에 요청하기
+        $.ajax({
+            type: "GET",
+            url: "/orders",
+            data: {},
+            success: function (response) {
+                // 2. 요청 성공 여부 확인하기
+                if (response['result'] == 'success') {
+                    let orders = response['orders'];
+                    // 3. 요청 성공했을 때 리뷰를 올바르게 화면에 나타내기
+                    for (let i = 0; i < orders.length; i++) {
+                        make_card(orders[i]['input_name'], orders[i]['input_select'], orders[i]['input_address'], orders[i]['input_number'], orders[i]['input_coupon']);
+                    }
+                } else {
+                    alert('주문 내역을  받아오지 못했습니다');
+                }
+            }
+        })
+    }
+
+    function make_card(input_name, input_select, input_address, input_number, input_coupon) {
+        let temp_html = `<tr>
+                    <td>${input_name}</td>
+                    <td>${input_select}</td>
+                    <td>${input_address}</td>
+                    <td>${input_number}</td>
+                    <td>${input_coupon}</td>
+                </tr>`;
+        $('#orders-box').append(temp_html); //orders-box부분에다 템블렛 끼워넣기
+    }
+
+    //javascript 로딩 후 실행
+    $(document).ready(function () {
+        alert('Roading completed')
+        $.ajax({
+            type: "GET",
+            url: "https://api.manana.kr/exchange/rate.json",
+            data: {}, //get 요청시엔 비워두기
+            success: function (response) {
+
+                // 환율 값 가져오기
+                //여기 부분은 유투브 복습 동영상 시청 후 시도
+                let currency = response[1]['rate'];
+                console.log(currency); //왜 currency가 not defined 되있다고 콘솔창에 뜨지?
+                let temp_currency = " 달러-원 환율 :" + currency;
+                $('#currencyInfo').append(temp_currency); //템블렛을 currencyInfo가 있는 곳에 집어넣는 append
+            }
+        });
+    });
+</script>
+
+<style>
+    .wrap {
+        width: 500px;
+        margin: 10px auto;
+
+    }
+
+    .product-image {
+        width: 500px;
+        height: 400px;
+        border-radius: 10px;
+        border-style: solid;
+        margin-bottom: 15px;
+    }
+
+    .mask-price {
+        width: 49%;
+        display: inline-block;
+        font-family: 'Nanum Pen Script';
+        /* default가 100%이므로 49%로 조정해주고 display를 inline이나 inlineblck으로 바꾸면 줄 안바뀌고 옆에 나타남 */
+    }
+
+    .mask_title1 {
+        width: 50%;
+        display: inline-block;
+        font-family: 'Nanum Pen Script';
+    }
+
+    .button {
+        width: 500px;
+        margin: 10px auto;
+        position: absolute;
+        left: 47%;
+        /* 50퍼 하면 약간 오른쪽으로 가서 47퍼로 놓음 */
+    }
+
+    .mask_title {
+        /* font-family: 'Sunflower', sans-serif; */
+        font-family: 'Nanum Pen Script';
+    }
+
+    .order_info {
+        font-family: 'Nanum Pen Script', cursive;
+        font-size: larger;
+
+    }
+</style>
+
+
+<body>
+    <div class="wrap">
+        <img class="product-image" src="https://www.draeger.com/Products/Image/x-plore-1900-img-d-16766-2018.jpg">
+
+        <div class="mask title">
+            <h1 class="mask_title1">KF94 마스크 공동구매</h1>
+            <h3 class="mask-price"> 가격: 9000원/10개</h3>
+            <h4 class="mask_title">COVID 19 바이러스 차단 KF94 마스크 공구, 최소주문 10개 (1인 30개 한정) </h4>
+
+            <!-- 중간에 구분선 긋기 -->
+            <hr style="border: solid 1px black">
+            <h1 class="mask_title"> 주문하기</h1>
+        </div>
+
+
+        <div class="order_info">
+            <!-- 여기서부터는 bootstrap에서 import한 것들 -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">주문자 성함:</span>
+                </div>
+
+                <input type="text" class="form-control" id="input_name" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">수량:</label>
+                </div>
+                <select class="custom-select" id="input_select">
+                    <option selected>option</option>
+                    <option value="10"> 10개 </option>
+                    <option value="20"> 20개 </option>
+                    <option value="30"> 30개</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">주소:</span>
+                </div>
+                <input type="text" id="input_address" class="form-control" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">전화번호:</span>
+                </div>
+                <input type="text" class="form-control" id="input_number" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-default">쿠폰 번호 입력:</span>
+                </div>
+                <input type="text" class="form-control" id="input_coupon" aria-label="Sizing example input"
+                    aria-describedby="inputGroup-sizing-default">
+            </div>
+        </div>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">주문자 성함</th>
+                    <th scope="col">수량</th>
+                    <th scope="col">주소</th>
+                    <th scope="col">전화번호</th>
+                    <th scope="col">쿠폰번호</th>
+                </tr>
+            </thead>
+            <tbody id="orders-box">
+                <tr>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                    <td>@mdo</td>
+                </tr>
+            </tbody>
+        </table>
+        </tbody>
+
+    </div>
+
+    </div>
+    <div class="order_info">
+        <div class="button">
+            <!-- 버튼 눌러 주문하기 -->
+            <button onclick="hey()" type="button" class="btn btn-primary">주문하기 </button>
+        </div>
+    </div>
+
+    </div>
+    </div>
+</body>
+
+</html>
